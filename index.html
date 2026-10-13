@@ -1,357 +1,381 @@
-아래 코드를 그대로 복사해 `.html` 파일로 저장하면 됩니다.
-
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Creative — 대화 공간</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    :root {
-      font-family: "Pretendard", "Noto Sans KR", -apple-system,
-        BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #192638;
-      background: #f3f5f8;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      background:
-        radial-gradient(ellipse at 8% 0%, #e1eafa, transparent 45%),
-        radial-gradient(ellipse at 100% 100%, #e6e8f4, transparent 40%),
-        #f3f5f8;
-    }
-
-    .app {
-      max-width: 1440px;
-      height: 100vh;
-      height: 100dvh;
-      margin: auto;
-      padding: 28px 40px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: #263e69;
-      color: #fff;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 5px 12px #263e6918;
-    }
-
-    .logo svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .brand-name {
-      font-size: 16px;
-      font-weight: 750;
-      letter-spacing: -0.4px;
-    }
-
-    .brand-label {
-      margin-top: 3px;
-      font-size: 11px;
-      letter-spacing: 1.6px;
-      color: #738096;
-    }
-
-    .external {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border: 1px solid #d9dfe8;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #526076;
-      text-decoration: none;
-      background: #ffffff80;
-      transition: background 0.2s;
-    }
-
-    .external:hover {
-      background: #fff;
-    }
-
-    .external:focus-visible {
-      outline: 3px solid #7199e4;
-      outline-offset: 3px;
-    }
-
-    main {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .intro {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .eyebrow {
-      margin: 0 0 9px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #607aab;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(23px, 3vw, 34px);
-      font-weight: 750;
-      letter-spacing: -1.3px;
-      line-height: 1.3;
-    }
-
-    .description {
-      margin: 9px 0 0;
-      font-size: 13px;
-      color: #738096;
-      line-height: 1.6;
-    }
-
-    .tag {
-      flex-shrink: 0;
-      font-size: 11px;
-      color: #687992;
-      border-radius: 30px;
-      border: 1px solid #dce3ee;
-      padding: 8px 12px;
-    }
-
-    .chat-card {
-      flex: 1;
-      min-height: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      background: #fff;
-      border: 1px solid #e1e6ee;
-      border-radius: 20px;
-      box-shadow:
-        0 16px 48px #223b6410,
-        0 2px 6px #223b6405;
-    }
-
-    .chat-bar {
-      min-height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      gap: 12px;
-      border-bottom: 1px solid #edf0f5;
-    }
-
-    .chat-title {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 12px;
-      font-weight: 650;
-    }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      background: #708dc1;
-      border-radius: 50%;
-    }
-
-    .chat-subtitle {
-      font-size: 11px;
-      color: #8b96a8;
-    }
-
-    iframe {
-      display: block;
-      width: 100%;
-      flex: 1;
-      min-height: 0;
-      border: 0;
-      background: #fff;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: #8b96a8;
-      font-size: 10px;
-      letter-spacing: 0.2px;
-    }
-
-    @media (max-width: 640px) {
-      .app {
-        padding: 16px 12px 12px;
-        gap: 20px;
-      }
-
-      .intro {
-        align-items: flex-start;
-      }
-
-      .tag {
-        display: none;
-      }
-
-      .brand-label {
-        font-size: 9px;
-      }
-
-      .external {
-        padding: 9px 10px;
-        font-size: 11px;
-      }
-
-      .description {
-        font-size: 12px;
-      }
-
-      main {
-        gap: 16px;
-      }
-
-      .chat-card {
-        border-radius: 15px;
-      }
-
-      .chat-bar {
-        padding: 12px 14px;
-        min-height: 48px;
-      }
-
-      .chat-subtitle {
-        display: none;
-      }
-
-      footer {
-        font-size: 9px;
-      }
-    }
-
-    @media (max-height: 600px) {
-      .app {
-        padding-top: 12px;
-        gap: 12px;
-      }
-
-      .intro {
-        display: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 학교스포츠클럽 페스티벌 | 우리 학교 팀 참가 신청</title>
+<style>
+:root{--bg:#F8FBFF;--gs:#9FDBFF;--gp:#FFB8E1;--acc:#FF2E93;--acc2:#1EC8FF;--txt:#17121F;--sm:#C8007A;--sub:rgba(23,18,31,.68);--r:28px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:system-ui,"Malgun Gothic",sans-serif;color:var(--txt);line-height:1.6;
+  background:radial-gradient(900px 600px at 95% -5%,var(--gp),transparent 70%),radial-gradient(800px 600px at -10% 45%,var(--gs),transparent 70%),radial-gradient(800px 700px at 105% 90%,var(--gp),transparent 70%),var(--bg);background-attachment:fixed}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.glass{background:rgba(255,255,255,.64);border:1px solid rgba(255,255,255,.8);border-radius:var(--r);position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 40px rgba(255,46,147,.10);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(160deg,rgba(255,255,255,.95),rgba(255,255,255,0) 55%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass,.nav{background:rgba(255,255,255,.94)!important}}
+:focus-visible{outline:3px solid var(--sm);outline-offset:3px;border-radius:12px}
+.chk{display:inline-block;padding:0 10px;border-radius:99px;background:rgba(255,46,147,.12);color:var(--sm);font-weight:800;font-size:.92em}
+.as{color:var(--sub);font-size:.85em;font-weight:700}
+.sticker{display:inline-block;padding:7px 18px;border-radius:99px;font-weight:900;font-size:14px;color:#fff;background:var(--acc);border:3px solid #fff;box-shadow:0 8px 20px rgba(200,0,122,.2);transform:rotate(-3deg)}
+.sticker.sky{background:var(--acc2);color:var(--txt);transform:rotate(3deg)}
+/* nav */
+.nav{position:sticky;top:12px;z-index:10;margin:12px auto 0;max-width:1140px;width:calc(100% - 24px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 22px;border-radius:99px;
+  background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.8);box-shadow:0 8px 30px rgba(255,46,147,.10);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}
+.brand{font-weight:900;letter-spacing:-.03em;text-decoration:none;color:var(--txt);display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--acc),var(--acc2));transform:skewX(-20deg)}
+.nav ul{list-style:none;display:flex;gap:4px;align-items:center}
+.nav ul a{display:block;padding:8px 14px;border-radius:99px;text-decoration:none;font-weight:800;font-size:15px;color:var(--txt)}
+.nav ul a:hover{background:rgba(255,46,147,.08)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 30px;border-radius:99px;border:0;cursor:pointer;background:linear-gradient(90deg,var(--acc),var(--sm));color:#fff!important;font:inherit;font-weight:900;text-decoration:none;box-shadow:0 10px 26px rgba(200,0,122,.28);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.sm{padding:9px 18px;font-size:15px}
+.btn svg{width:18px;height:18px}
+/* hero */
+.hero{position:relative;padding:44px 0 40px;overflow:hidden}
+.hero .lanes{position:absolute;left:-5%;right:-5%;bottom:30px;height:150px;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;position:relative}
+.hero h1{margin-top:18px;font-size:clamp(44px,7.4vw,92px);line-height:.98;font-weight:900;letter-spacing:-.06em}
+.hero h1 em{font-style:normal;color:var(--acc)}
+@supports (-webkit-background-clip:text) or (background-clip:text){.hero h1 em{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}}
+.hero .lead{margin-top:18px;font-size:clamp(20px,2.4vw,28px);font-weight:900;letter-spacing:-.04em}
+.hero .lead b{color:var(--acc)}
+.hero p.desc{margin-top:10px;max-width:560px;color:var(--sub);font-weight:700}
+.hero-art{width:100%;max-width:520px;justify-self:end}
+.hero-art .bounce{animation:bounce 2.4s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-info{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);padding:8px}
+.hero-info div{padding:12px 18px}
+.hero-info div+div{border-left:1px solid rgba(255,184,225,.8)}
+.hero-info dt{font-size:13px;font-weight:900;color:var(--sm)}
+.hero-info dd{font-weight:900;font-size:16px}
+.cta-row{margin-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.dday{font-weight:900;color:var(--sm);line-height:1.15}
+.dday b{display:block;font-size:34px;color:var(--acc);letter-spacing:-.04em}
+/* sections */
+section.sec{padding:76px 0}
+.kicker{font-size:14px;font-weight:900;color:var(--sm);letter-spacing:.1em;display:flex;align-items:center;gap:10px}
+.kicker i{width:30px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--acc),var(--acc2));transform:skewX(-20deg)}
+h2{font-size:clamp(30px,4.4vw,52px);font-weight:900;letter-spacing:-.05em;line-height:1.1;margin-top:8px}
+h2 em{font-style:normal;color:var(--acc)}
+.sec-sub{margin-top:10px;color:var(--sub);font-weight:700}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:32px}
+.card{padding:28px}
+.ic{width:58px;height:58px;border-radius:50%;background:#FFE6F2;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.ic svg{width:32px;height:32px}
+.card h3{font-size:21px;letter-spacing:-.03em;font-weight:900}
+.card p{margin-top:6px;color:var(--sub);font-weight:700;font-size:15px}
+.grid3 .card:nth-child(2){transform:translateY(16px)}
+.sport .num{font-size:56px;font-weight:900;letter-spacing:-.05em;line-height:1;color:var(--acc);margin-top:6px}
+.sport .num small{font-size:20px;color:var(--sm)}
+.sport:nth-child(even) .num{color:var(--acc2)}
+.sport .meta{margin-top:8px;font-size:14px;font-weight:800;color:var(--sm)}
+.cheer{margin-top:20px;padding:24px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.cheer h3{font-size:22px;font-weight:900}
+.cheer p{color:var(--sub);font-weight:700;flex:1;min-width:240px}
+/* timeline */
+.tl{margin-top:28px;padding:30px 26px 22px;overflow-x:auto}
+.tl ol{list-style:none;display:grid;grid-template-columns:repeat(8,minmax(104px,1fr));position:relative;min-width:860px}
+.tl ol::before{content:"";position:absolute;left:4%;right:4%;top:10px;height:8px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--gs) 0 40px,var(--gp) 40px 80px);transform:skewX(-20deg)}
+.tl li{position:relative;text-align:center;padding-top:36px}
+.tl li::before{content:"";position:absolute;left:50%;top:2px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#fff;border:4px solid var(--acc);box-sizing:border-box}
+.tl li.hl::before{background:var(--acc);box-shadow:0 0 0 7px rgba(30,200,255,.35)}
+.tl time{display:block;font-weight:900;font-size:20px;color:var(--sm);letter-spacing:-.02em}
+.tl span{font-size:14px;font-weight:800}
+.tl li.hl time{color:var(--acc)}
+.perks{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.perks ul{list-style:none;margin-top:10px;display:grid;gap:8px}
+.perks li{font-weight:800;display:flex;gap:10px;align-items:center}
+.perks li::before{content:"";flex:none;width:14px;height:6px;border-radius:3px;background:var(--acc);transform:skewX(-20deg)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px;counter-reset:s}
+.step{padding:24px;position:relative}
+.step .n{font-size:44px;font-weight:900;color:var(--acc);letter-spacing:-.05em;line-height:1}
+.step:nth-child(even) .n{color:var(--acc2)}
+.step h3{margin-top:8px;font-size:19px;font-weight:900}
+.step p{margin-top:6px;font-size:14.5px;color:var(--sub);font-weight:700}
+.step:not(:last-child)::after{content:"";position:absolute;right:-14px;top:50%;width:12px;height:12px;border-top:4px solid var(--acc);border-right:4px solid var(--acc);transform:translateY(-50%) rotate(45deg)}
+/* faq */
+.faq{margin-top:28px;display:grid;gap:12px;max-width:880px}
+.faq .item{border-radius:24px}
+.faq button{width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;background:none;border:0;font:inherit;font-weight:900;font-size:17px;color:var(--txt);cursor:pointer;border-radius:24px}
+.faq button svg{flex:none;width:22px;height:22px;transition:transform .25s}
+.faq button[aria-expanded="true"] svg{transform:rotate(45deg)}
+.faq .ans{padding:0 24px 20px;color:var(--sub);font-weight:700}
+.faq .ans[hidden]{display:none}
+/* form */
+.apply{display:grid;grid-template-columns:.85fr 1.35fr;gap:24px;margin-top:28px;align-items:start}
+.apply aside{padding:30px}
+.apply aside .dl{font-size:56px;font-weight:900;color:var(--acc);letter-spacing:-.05em;line-height:1;margin:6px 0 4px}
+.apply aside ul{list-style:none;margin-top:16px;display:grid;gap:10px}
+.apply aside li{display:flex;gap:10px;font-weight:800}
+.apply aside li b{flex:none;width:76px;color:var(--sm)}
+form{padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+label,legend{font-weight:900;font-size:14px}
+.req{color:var(--sm)}
+input[type=text],input[type=tel],input[type=email],input[type=number]{font:inherit;padding:12px 16px;border-radius:16px;border:1px solid rgba(255,46,147,.25);background:rgba(255,255,255,.88);color:var(--txt);width:100%}
+input:focus-visible{outline:3px solid var(--sm);outline-offset:1px}
+fieldset{border:0;grid-column:1/-1}
+.sports{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sp{display:grid;grid-template-columns:auto 1fr 92px;align-items:center;gap:10px;padding:10px 14px;border-radius:18px;background:rgba(255,255,255,.7);border:1px solid rgba(255,46,147,.15)}
+.sp input[type=checkbox]{width:20px;height:20px;accent-color:var(--acc)}
+.sp label{font-size:15px}
+.sp input[type=number]{padding:8px 10px;border-radius:12px}
+.agree{display:flex;gap:10px;align-items:flex-start;font-weight:700;font-size:14px}
+.agree input{width:20px;height:20px;margin-top:2px;accent-color:var(--acc)}
+.done{grid-column:1/-1;padding:16px 20px;border-radius:18px;background:rgba(255,46,147,.10);color:var(--sm);font-weight:900}
+footer{padding:40px 0 60px;color:var(--sub);font-weight:700;font-size:14px}
+footer .glass{padding:24px 28px;display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+.grid3 .card.reveal.on:nth-child(2){transform:translateY(16px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.hero-art .bounce{animation:none}.btn{transition:none}}
+@media (max-width:768px){
+  .nav ul li:not(:last-child){display:none}
+  .hero-grid,.grid3,.grid4,.steps,.apply,.hero-info,.perks,.sports{grid-template-columns:1fr}
+  .hero-art{justify-self:center;max-width:380px;order:-1}
+  .hero-info div+div{border-left:0;border-top:1px solid rgba(255,184,225,.8)}
+  .grid3 .card:nth-child(2),.grid3 .card.reveal.on:nth-child(2){transform:none}
+  .step:not(:last-child)::after{display:none}
+  form{grid-template-columns:1fr}
+  section.sec{padding:54px 0}
+}
+@media print{.glass,.nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff;box-shadow:none;border:1px solid #FFB8E1}.nav{position:static}.reveal{opacity:1;transform:none}*{-webkit-print-color-adjust:exact;print-color-adjust:exact;animation:none!important}}
+</style>
 </head>
-
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path
-              d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="star" viewBox="-10 -10 20 20"><path d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10z"/></symbol>
+    <symbol id="i-soccer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#FF2E93" stroke-width="1.8"/><path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2zM12 8.2V3M15.6 10.8l4.8-1.6M14.2 15l3 4.1M9.8 15l-3 4.1M8.4 10.8L3.6 9.2" fill="none" stroke="#FF2E93" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-basket" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#FF2E93" stroke-width="1.8"/><path d="M3 12h18M12 3v18M5.6 5.6c3 3 3 9.8 0 12.8M18.4 5.6c-3 3-3 9.8 0 12.8" fill="none" stroke="#FF2E93" stroke-width="1.6"/></symbol>
+    <symbol id="i-paddle" viewBox="0 0 24 24"><rect x="5" y="2.5" width="11" height="12.5" rx="5.5" fill="none" stroke="#FF2E93" stroke-width="1.8"/><path d="M10.5 15v3.2M9 18.2h3v3.3H9z" fill="none" stroke="#FF2E93" stroke-width="1.8" stroke-linejoin="round"/><circle cx="19" cy="17" r="2.2" fill="none" stroke="#FF2E93" stroke-width="1.6"/></symbol>
+    <symbol id="i-baton" viewBox="0 0 24 24"><path d="M4.5 17.5L16.5 5.5l2.5 2.5-12 12zM2 9h4M2.5 12.5h2.5" fill="none" stroke="#FF2E93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3.5 10v4h3l10 5V5l-10 5zM6.5 14l1.5 5.5h2.5L9.5 15M19 9.5a3.5 3.5 0 0 1 0 5" fill="none" stroke="#FF2E93" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-whistle" viewBox="0 0 24 24"><circle cx="8.5" cy="14.5" r="5.5" fill="none" stroke="#FF2E93" stroke-width="1.8"/><path d="M8.5 9H21v3.5h-7.5" fill="none" stroke="#FF2E93" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="14.5" r="1.4" fill="#FF2E93"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="#C8007A" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
 
-        <div>
-          <div class="brand-name">AI Creative</div>
-          <div class="brand-label">YOUR THINKING PARTNER</div>
-        </div>
-      </div>
+<nav class="nav" aria-label="주요 메뉴">
+  <a class="brand" href="#top"><i aria-hidden="true"></i>2026 학교스포츠클럽 페스티벌</a>
+  <ul>
+    <li><a href="#about">페스티벌 소개</a></li>
+    <li><a href="#events">종목·일정</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a class="btn sm" href="#apply">참가 신청</a></li>
+  </ul>
+</nav>
 
-      <a
-        class="external"
-        href="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_XmSQJZ/webchat?__version__=2&amp;enableFileAttachment=false&amp;cliAgent=true"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        새 창에서 열기
-        <span aria-hidden="true">↗</span>
-      </a>
-    </header>
-
-    <main>
-      <section class="intro" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">SPACE FOR IDEAS</p>
-
-          <h1 id="page-title">
-            좋은 아이디어는 대화에서 시작됩니다.
-          </h1>
-
-          <p class="description">
-            궁금한 점부터 새로운 영감까지,
-            AI와 함께 생각을 이어가세요.
-          </p>
-        </div>
-
-        <span class="tag">AI 대화 공간</span>
-      </section>
-
-      <section class="chat-card" aria-label="AI 챗봇">
-        <div class="chat-bar">
-          <div class="chat-title">
-            <span class="dot" aria-hidden="true"></span>
-            Creative Assistant
-          </div>
-
-          <span class="chat-subtitle">
-            생각을 자유롭게 나눠보세요
-          </span>
-        </div>
-
-        <iframe
-          title="AI Creative 챗봇 대화"
-          src="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_XmSQJZ/webchat?__version__=2&amp;enableFileAttachment=false&amp;cliAgent=true"
-        ></iframe>
-      </section>
-    </main>
-
-    <footer>
-      <span>Powered by Microsoft Copilot Studio</span>
-      <span>AI Creative © 2026</span>
-    </footer>
+<header class="hero" id="top">
+  <svg class="lanes" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+    <g stroke-linecap="round" fill="none"><path d="M0 150 L1200 20" stroke="#fff" stroke-width="14"/><path d="M0 150 L1200 20" stroke="#1EC8FF" stroke-width="2" opacity=".6"/><path d="M0 190 L1200 60" stroke="#fff" stroke-width="14"/><path d="M0 190 L1200 60" stroke="#FFB8E1" stroke-width="2"/></g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="sticker">2026 서울 중학교 스포츠클럽</span> <span class="sticker sky">12.5 SAT</span>
+      <h1>학교스포츠클럽<br><em>페스티벌</em></h1>
+      <p class="lead">함께 뛰고, 함께 외치는 하루 <b>-</b> 우리 클럽의 실력을 보여 줄 시간!</p>
+      <p class="desc">서울 중학교 스포츠클럽 학생 300명이 풋살, 3대3 농구, 피클볼, 학교 대항 이어달리기로 겨루고 함께 응원합니다.</p>
+    </div>
+    <svg class="hero-art" viewBox="0 0 300 260" role="img" aria-label="사선 트랙 위로 축구공, 농구공, 피클볼, 바통이 궤적을 그리며 튀어 오르는 일러스트">
+      <defs><radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFB8E1" stop-opacity=".9"/><stop offset="1" stop-color="#FFB8E1" stop-opacity="0"/></radialGradient></defs>
+      <ellipse cx="160" cy="120" rx="150" ry="115" fill="url(#g1)"/>
+      <g fill="none" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 9">
+        <path d="M10 250 Q40 120 80 180" stroke="#FF2E93"/><path d="M80 180 Q120 30 160 110" stroke="#FF2E93"/><path d="M160 110 Q195 20 225 80" stroke="#1EC8FF"/><path d="M225 80 Q255 0 280 40" stroke="#FF2E93"/>
+      </g>
+      <g transform="translate(80 180)"><circle r="26" fill="#fff" stroke="#17121F" stroke-width="3"/><path d="M0-9 8.6-2.8 5.3 7.3-5.3 7.3-8.6-2.8Z" fill="#17121F"/><path d="M0-9V-26M8.6-2.8 24.7-8M5.3 7.3 15.3 21M-5.3 7.3-15.3 21M-8.6-2.8-24.7-8" stroke="#17121F" stroke-width="2.4"/></g>
+      <g class="bounce"><g transform="translate(160 110)"><circle r="30" fill="#FF2E93" stroke="#C8007A" stroke-width="3"/><path d="M-30 0H30M0-30V30M-21-21Q-8 0-21 21M21-21Q8 0 21 21" fill="none" stroke="#C8007A" stroke-width="2.6"/></g></g>
+      <g transform="translate(225 80)"><circle r="20" fill="#1EC8FF"/><g fill="#fff"><circle cx="-8" cy="-7" r="2.6"/><circle cx="7" cy="-8" r="2.6"/><circle cx="0" cy="1" r="2.6"/><circle cx="-7.5" cy="8" r="2.6"/><circle cx="8" cy="7" r="2.6"/></g></g>
+      <g transform="translate(280 40) rotate(-30)"><rect x="-30" y="-9" width="60" height="18" rx="9" fill="#1EC8FF"/><path d="M-9-9V9M9-9V9" stroke="#fff" stroke-width="3"/></g>
+      <g fill="#FF2E93"><use href="#star" x="105" y="30" width="20" height="20"/><use href="#star" x="250" y="120" width="16" height="16"/></g>
+      <g fill="#1EC8FF"><use href="#star" x="30" y="150" width="14" height="14"/><use href="#star" x="190" y="170" width="12" height="12"/></g>
+      <g stroke="#FF2E93" stroke-width="3" stroke-linecap="round"><path d="M200 22v-10M210 27l7-7M190 27l-7-7"/></g>
+    </svg>
   </div>
+  <div class="wrap">
+    <dl class="hero-info glass">
+      <div><dt>일시</dt><dd>2026년 12월 5일(토) 09:00~17:00</dd></div>
+      <div><dt>장소</dt><dd><span class="chk">[확인 필요]</span> 실내 체육관 2곳</dd></div>
+      <div><dt>참가비</dt><dd>무료 <span class="as">[가정]</span></dd></div>
+    </dl>
+    <div class="cta-row">
+      <a class="btn" href="#apply">우리 학교 팀 참가 신청하기<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p class="dday">신청 마감<b>2026년 11월 20일(금)</b></p>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="sec" id="about">
+  <div class="wrap">
+    <p class="kicker reveal"><i aria-hidden="true"></i>ABOUT</p>
+    <h2 class="reveal">이기는 팀도, 응원하는 팀도<br><em>모두 주인공</em></h2>
+    <div class="grid3">
+      <article class="card glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-soccer"/></svg></div><h3>4개 종목을 한자리에서</h3><p>풋살, 3대3 농구, 피클볼, 학교 대항 이어달리기까지 하루 만에 모두 즐깁니다.</p></article>
+      <article class="card glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-mega"/></svg></div><h3>응원하는 팀도 주인공</h3><p>경기장 밖 함성도 기록에 남도록, 가장 뜨겁게 응원한 학교에 응원상을 드립니다.</p></article>
+      <article class="card glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-whistle"/></svg></div><h3>안전한 경기, 공정한 심판</h3><p>체육관마다 간호사·응급구조사가 있고 구급차가 대기합니다. 종목별 심판 14명이 경기를 맡습니다. <span class="as">[가정]</span></p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="events">
+  <div class="wrap">
+    <p class="kicker reveal"><i aria-hidden="true"></i>EVENTS &amp; SCHEDULE</p>
+    <h2 class="reveal">4개 종목, <em>하루</em> 안에 결승까지</h2>
+    <p class="sec-sub reveal">종목 편성·시간표·시상·참가 혜택은 모두 <span class="as">[가정]</span>입니다.</p>
+    <div class="grid4">
+      <article class="card sport glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-soccer"/></svg></div><h3>풋살</h3><div class="num">12<small>팀</small></div><p class="meta">팀당 10명</p><p>빠른 패스와 짜릿한 슈팅으로 겨루는 팀 대결</p></article>
+      <article class="card sport glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-basket"/></svg></div><h3>3대3 농구</h3><div class="num">20<small>팀</small></div><p class="meta">팀당 4명</p><p>작은 코트에서 세 명이 펼치는 스피드 승부</p></article>
+      <article class="card sport glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-paddle"/></svg></div><h3>피클볼 복식</h3><div class="num">24<small>팀</small></div><p class="meta">팀당 2명 · 패들 팀 지참(예비 패들 비치)</p><p>두 명이 호흡을 맞춰 랠리를 이어 가는 라켓 스포츠</p></article>
+      <article class="card sport glass reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-baton"/></svg></div><h3>학교 대항 이어달리기</h3><div class="num">20<small>개교</small></div><p class="meta">학교당 8명</p><p>학교의 이름을 걸고 바통을 잇는 이날의 하이라이트</p></article>
+    </div>
+    <div class="cheer glass reveal">
+      <span class="sticker">학교별 응원전</span>
+      <h3>모든 참가 학교가 함께하는 응원 대결</h3>
+      <p>가장 뜨거운 학교에 응원상을 드립니다. 개회식 합동 응원과 점심시간 응원 퍼포먼스로 함께 달아오릅니다.</p>
+    </div>
+    <div class="tl glass reveal" aria-label="당일 시간표">
+      <ol>
+        <li><time>08:30</time><span>등록·몸풀기</span></li>
+        <li><time>09:00</time><span>개회식·합동 응원</span></li>
+        <li><time>09:30</time><span>종목별 예선</span></li>
+        <li><time>12:00</time><span>점심·응원 퍼포먼스</span></li>
+        <li><time>13:00</time><span>본선·결승</span></li>
+        <li class="hl"><time>15:30</time><span>이어달리기 결승</span></li>
+        <li><time>16:20</time><span>시상·폐회</span></li>
+        <li><time>17:00</time><span>종료</span></li>
+      </ol>
+    </div>
+    <div class="perks">
+      <div class="card glass reveal"><h3>시상</h3><ul><li>종목별 1~3위 트로피·메달</li><li>이어달리기 1~3위</li><li>응원상</li></ul></div>
+      <div class="card glass reveal"><h3>참가 혜택</h3><ul><li>점심 도시락과 음료</li><li>참가 기념 티셔츠</li><li>단체 상해보험 가입</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="howto">
+  <div class="wrap">
+    <p class="kicker reveal"><i aria-hidden="true"></i>HOW TO APPLY</p>
+    <h2 class="reveal">신청은 <em>4단계</em>면 끝</h2>
+    <div class="steps">
+      <div class="step glass reveal"><div class="n">01</div><h3>온라인 신청</h3><p>학교 담당 선생님이 신청 폼을 작성합니다. 마감은 2026년 11월 20일(금)입니다.</p></div>
+      <div class="step glass reveal"><div class="n">02</div><h3>접수 확인</h3><p>접수 확인 안내를 보내 드립니다. 안내 방법과 시기는 <span class="chk">[확인 필요]</span>입니다.</p></div>
+      <div class="step glass reveal"><div class="n">03</div><h3>참가 확정·대진 안내</h3><p>참가 확정과 대진표를 안내합니다. 팀 선정 방식과 안내 일정은 <span class="chk">[확인 필요]</span>입니다.</p></div>
+      <div class="step glass reveal"><div class="n">04</div><h3>대회 당일 등록</h3><p>08:30까지 현장에 도착해 등록하고 몸을 풉니다. <span class="as">[가정]</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <p class="kicker reveal"><i aria-hidden="true"></i>FAQ</p>
+    <h2 class="reveal">자주 묻는 질문</h2>
+    <div class="faq">
+      <div class="item glass reveal"><button type="button" aria-expanded="false" aria-controls="a1" id="q1">참가비가 있나요?<svg aria-hidden="true"><use href="#i-plus"/></svg></button><div class="ans" id="a1" role="region" aria-labelledby="q1" hidden>참가비는 무료입니다. 점심 도시락·음료, 참가 기념 티셔츠, 단체 상해보험을 제공합니다. <span class="as">[가정]</span></div></div>
+      <div class="item glass reveal"><button type="button" aria-expanded="false" aria-controls="a2" id="q2">누가 신청하나요? 학생이 직접 신청해도 되나요?<svg aria-hidden="true"><use href="#i-plus"/></svg></button><div class="ans" id="a2" role="region" aria-labelledby="q2" hidden>각 학교의 담당 선생님이 학교 단위로 신청합니다. 학생 개인 신청은 받지 않습니다.</div></div>
+      <div class="item glass reveal"><button type="button" aria-expanded="false" aria-controls="a3" id="q3">한 학교에서 여러 종목에 나가거나 한 종목에 여러 팀이 나갈 수 있나요?<svg aria-hidden="true"><use href="#i-plus"/></svg></button><div class="ans" id="a3" role="region" aria-labelledby="q3" hidden>신청 폼에서 종목을 여러 개 고를 수 있고, 종목마다 팀 수를 적을 수 있습니다. 학교별 팀 수 제한과 학생 한 명의 중복 출전 허용 여부는 <span class="chk">[확인 필요]</span>입니다.</div></div>
+      <div class="item glass reveal"><button type="button" aria-expanded="false" aria-controls="a4" id="q4">학부모님도 관람할 수 있나요?<svg aria-hidden="true"><use href="#i-plus"/></svg></button><div class="ans" id="a4" role="region" aria-labelledby="q4" hidden>네, 관람할 수 있습니다. 관람 가능 인원은 <span class="chk">[확인 필요]</span>이므로 신청 폼에 관람 예정 인원을 적어 주세요.</div></div>
+      <div class="item glass reveal"><button type="button" aria-expanded="false" aria-controls="a5" id="q5">준비물은 무엇인가요?<svg aria-hidden="true"><use href="#i-plus"/></svg></button><div class="ans" id="a5" role="region" aria-labelledby="q5" hidden>운동복과 실내 운동화, 응원 도구를 챙겨 주세요. 피클볼 팀은 패들을 가져오는 것이 원칙이며, 현장에도 예비 패들이 있습니다. <span class="as">[가정]</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="apply">
+  <div class="wrap">
+    <p class="kicker reveal"><i aria-hidden="true"></i>APPLY</p>
+    <h2 class="reveal">우리 학교 팀 <em>참가 신청</em></h2>
+    <p class="sec-sub reveal">학교 담당 선생님이 작성해 주세요. 이 폼은 데모로, 입력값을 어디에도 보내거나 저장하지 않습니다.</p>
+    <div class="apply">
+      <aside class="glass reveal">
+        <span class="sticker">신청 마감</span>
+        <p class="dl">11.20</p>
+        <p style="font-weight:900;color:var(--sm)">2026년 11월 20일(금)</p>
+        <ul>
+          <li><b>일시</b><span>2026년 12월 5일(토) 09:00~17:00</span></li>
+          <li><b>장소</b><span><span class="chk">[확인 필요]</span> 실내 체육관 2곳</span></li>
+          <li><b>신청 링크</b><span class="chk">[확인 필요]</span></li>
+          <li><b>참가비</b><span>무료 <span class="as">[가정]</span></span></li>
+          <li><b>문의</b><span class="chk">[확인 필요]</span></li>
+        </ul>
+      </aside>
+      <form class="glass reveal" id="applyForm" novalidate>
+        <div class="f"><label for="school">학교명 <span class="req">*</span></label><input id="school" name="school" type="text" required autocomplete="organization"></div>
+        <div class="f"><label for="teacher">담당 교사 이름 <span class="req">*</span></label><input id="teacher" name="teacher" type="text" required autocomplete="name"></div>
+        <div class="f"><label for="phone">연락처 <span class="req">*</span></label><input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="010-0000-0000"></div>
+        <div class="f"><label for="email">이메일 <span class="req">*</span></label><input id="email" name="email" type="email" required autocomplete="email"></div>
+        <fieldset>
+          <legend>참가 종목과 팀 수 <span class="req">*</span> (복수 선택)</legend>
+          <div class="sports">
+            <div class="sp"><input type="checkbox" id="sp1" name="sport" value="풋살"><label for="sp1">풋살</label><input type="number" id="sp1n" min="1" aria-label="풋살 팀 수" placeholder="팀 수" disabled></div>
+            <div class="sp"><input type="checkbox" id="sp2" name="sport" value="3대3 농구"><label for="sp2">3대3 농구</label><input type="number" id="sp2n" min="1" aria-label="3대3 농구 팀 수" placeholder="팀 수" disabled></div>
+            <div class="sp"><input type="checkbox" id="sp3" name="sport" value="피클볼 복식"><label for="sp3">피클볼 복식</label><input type="number" id="sp3n" min="1" aria-label="피클볼 복식 팀 수" placeholder="팀 수" disabled></div>
+            <div class="sp"><input type="checkbox" id="sp4" name="sport" value="이어달리기"><label for="sp4">학교 대항 이어달리기</label><input type="number" id="sp4n" min="1" max="1" aria-label="이어달리기 팀 수" placeholder="팀 수" disabled></div>
+          </div>
+        </fieldset>
+        <div class="f"><label for="students">참가 학생 수 <span class="req">*</span></label><input id="students" name="students" type="number" min="1" required></div>
+        <div class="f"><label for="teachers">지도교사 수 <span class="req">*</span></label><input id="teachers" name="teachers" type="number" min="1" required></div>
+        <div class="f full"><label for="parents">학부모 관람 예정 인원 (선택)</label><input id="parents" name="parents" type="number" min="0"></div>
+        <div class="f full"><label class="agree" for="agree"><input id="agree" name="agree" type="checkbox" required><span>[필수] 개인정보 수집·이용에 동의합니다. 참가 접수와 안내를 위해 담당 교사의 이름, 연락처, 이메일을 수집합니다. 보유 기간: <span class="chk">[확인 필요]</span></span></label></div>
+        <div class="f full"><button class="btn" type="submit">우리 학교 팀 참가 신청하기<svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
+        <p class="done" id="doneMsg" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><div class="glass">
+    <strong style="color:var(--txt)">2026 학교스포츠클럽 페스티벌</strong>
+    <span>2026년 12월 5일(토) 09:00~17:00 · 장소 <span class="chk">[확인 필요]</span></span>
+    <span>주최 <span class="chk">[확인 필요]</span></span>
+    <span>문의 <span class="chk">[확인 필요]</span> (전화 / 이메일)</span>
+  </div></div>
+</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.faq button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      b.setAttribute('aria-expanded',String(!open));
+      document.getElementById(b.getAttribute('aria-controls')).hidden=open;
+    });
+  });
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('on')});}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target);}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  }
+  // 종목 체크 시 팀 수 입력 활성화
+  ['sp1','sp2','sp3','sp4'].forEach(function(id){
+    var cb=document.getElementById(id), n=document.getElementById(id+'n');
+    cb.addEventListener('change',function(){n.disabled=!cb.checked; n.required=cb.checked; if(cb.checked){n.value=n.value||1;} else {n.value='';}});
+  });
+  // 신청 폼 (데모: 입력값을 보내거나 저장하지 않음)
+  var form=document.getElementById('applyForm'), msg=document.getElementById('doneMsg');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var anySport=form.querySelectorAll('input[name="sport"]:checked').length>0;
+    if(!form.checkValidity()||!anySport){
+      msg.hidden=false; msg.textContent=anySport?'필수 항목(*)과 개인정보 동의를 확인해 주세요.':'참가 종목을 하나 이상 선택해 주세요.';
+      var bad=anySport?form.querySelector(':invalid'):document.getElementById('sp1'); if(bad) bad.focus(); return;
+    }
+    msg.hidden=false; msg.textContent='신청이 접수되었습니다(데모)';
+    form.reset(); ['sp1n','sp2n','sp3n','sp4n'].forEach(function(id){document.getElementById(id).disabled=true;});
+  });
+})();
+</script>
 </body>
 </html>
-```
+
